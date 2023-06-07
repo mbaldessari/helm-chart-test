@@ -4,9 +4,6 @@ on:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
-permissions:
-  contents: read
-
 jobs:
   update-helm-charts-index:
     runs-on: ubuntu-latest
