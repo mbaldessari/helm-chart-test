@@ -1,5 +1,6 @@
 name: update-helm-charts-index
 on:
+  workflow_dispatch:
   push:
     tags:
       - '*'
