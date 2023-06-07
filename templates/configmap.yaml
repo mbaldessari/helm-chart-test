@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test
+  namespace: foo
+data:
+   foo: {{ .Values.foo }}
