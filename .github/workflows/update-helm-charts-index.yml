@@ -1,0 +1,35 @@
+name: update-helm-charts-index
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+
+jobs:
+  update-helm-charts-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - name: verify Chart version matches tag version
+        run: |-
+          export TAG=${{ github.ref_name }}
+          git_tag=$(echo "${TAG#v}")
+          chart_tag=$(yq r Chart.yaml version)
+          if [ "${git_tag}" != "${chart_tag}" ]; then
+            echo "chart version (${chart_tag}) did not match git version (${git_tag})"
+            exit 1
+          fi
+      - name: Publish Helm chart
+        uses: stefanprodan/helm-gh-pages@master
+        with:
+          token: ${{ secrets.HELMREPOACCESSKEY }}
+          charts_dir: charts
+          charts_url: https://mbaldessari.github.io/helm-repo-test
+          owner: mbaldessari
+          repository: helm-repo-test
+          branch: gh-pages
+          target_dir: charts
+          commit_username: test
+          commit_email: test@example.com
