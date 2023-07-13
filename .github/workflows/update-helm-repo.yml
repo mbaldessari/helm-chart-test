@@ -28,7 +28,7 @@ jobs:
       - name: Invoke umbrella-repo publish charts workflow
         id: update
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.CHARTS_TEST_REPO }}
         run: |-
           gh workflow run publish-charts.yml \
             --repo mbaldessari/charts-test \
