@@ -1,5 +1,17 @@
 # Note this workflow is only maintained in this repo
 # It should be invoked from each chart's repo
+#
+# This invokes the workflow named 'publish-charts' in the umbrella repo
+# It expects to have a secret called UMBRELLA_REPO_PAT which contains
+# the GitHub token that has permissions to invoke workflows and commit code
+# inside the umbrella-repo.
+# The following fine-grained permissions were used in testing and were limited
+# to the umbrella repo only:
+# - Actions: r/w
+# - Commit statuses: r/w
+# - Contents: r/w
+# - Deployments: r/w
+# - Pages: r/w
 
 name: vp-patterns/update-umbrella-repo
 on:
@@ -9,6 +21,8 @@ on:
 
 jobs:
   update-umbrella-repo:
+    # We do not want to run this workflow on the umbrella-repo
+    # FIXME(bandini): rename this to the final repo
     if: ${{ github.repository != 'mbaldessari/charts-test' }}
     runs-on: ubuntu-latest
     permissions:
@@ -25,11 +39,13 @@ jobs:
             echo "chart version (${chart_tag}) did not match git version (${git_tag})"
             exit 1
           fi
+
       - name: Invoke umbrella-repo publish charts workflow
         id: update
         env:
-          GH_TOKEN: ${{ secrets.CHARTS_TEST_REPO }}
+          GH_TOKEN: ${{ secrets.UMBRELLA_REPO_PAT }}
         run: |-
+          # FIXME(bandini): rename this to the final repo
           gh workflow run publish-charts.yml \
             --repo mbaldessari/charts-test \
             --ref main \
