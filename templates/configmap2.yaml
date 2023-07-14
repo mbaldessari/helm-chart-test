@@ -4,7 +4,7 @@ metadata:
   name: test2
   namespace: foo
 data:
-  mortacci: "1.1.3"
+  mortacci: "1.1.4"
   foo: "If this confimap appears automagically then argo does the reapplication"
   helm-name-version: {{ include "test.chart" . }} 
   helm-version: {{ .Chart.Version | quote }}
