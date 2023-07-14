@@ -4,4 +4,7 @@ metadata:
   name: test
   namespace: foo
 data:
-   foo: {{ .Values.foo }}
+  foo: {{ .Values.foo }}
+  helm-name-version: {{ include "test.chart" . }} 
+  helm-version: {{ .Chart.Version | quote }}
+  helm-appversion: {{ .Chart.AppVersion | quote }}
