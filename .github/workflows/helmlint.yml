@@ -1,0 +1,9 @@
+# If the repository is public, be sure to change to GitHub hosted runners
+name: Lint GitHub Helm Workflows
+on: [push, pull_request]
+
+permissions:
+  contents: read
+jobs:
+  actionlint:
+    uses: mbaldessari/common-github/.github/workflows/helmlint.yml@main
