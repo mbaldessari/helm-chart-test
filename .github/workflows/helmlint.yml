@@ -1,6 +1,5 @@
-name: Lint GitHub Helm Workflows
+name: Helm Lint GitHub Workflows
 on: [push, pull_request]
-
 permissions:
   contents: read
 jobs:
