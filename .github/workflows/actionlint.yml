@@ -11,4 +11,4 @@ permissions:
   contents: read
 jobs:
   actionlint:
-    uses: mbaldessari/common-github/helm/workflows/actionlint.yaml@main
+    uses: mbaldessari/common-github/.github/workflows/actionlint.yaml@main
