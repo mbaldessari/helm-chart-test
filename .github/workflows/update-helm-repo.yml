@@ -22,7 +22,9 @@ on:
 
 jobs:
   helmlint:
-    uses: ./.github/workflows/helmlint.yml
+    uses: mbaldessari/common-github/.github/workflows/helmlint.yml@main
+    permissions:
+      contents: read
 
   update-umbrella-repo:
     needs: [helmlint]
