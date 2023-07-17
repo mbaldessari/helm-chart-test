@@ -21,10 +21,11 @@ on:
       - 'v[0-9]+.[0-9]+'
 
 jobs:
+  helmlint:
+    uses: ./.github/workflows/helmlint.yml
+
   update-umbrella-repo:
-    # We do not want to run this workflow on the umbrella-repo
-    # FIXME(bandini): rename this to the final repo
-    if: ${{ github.repository != 'mbaldessari/charts-test' }}
+    needs: [helmlint]
     runs-on: ubuntu-latest
     permissions:
       id-token: write
